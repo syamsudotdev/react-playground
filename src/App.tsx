@@ -4,21 +4,16 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="columns is-centered">
+      <div className="column is-narrow">
+        <form>
+          <label>Username: <input /></label>
+          <br/>
+          <label>Password: <input type="password" /></label>
+          <br/>
+          <button className="button is-primary">LOGIN</button>
+        </form>
+      </div>
     </div>
   );
 }
