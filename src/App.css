@@ -1,0 +1,11 @@
+
+.center-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.center-box div {
+    width: 100vh;
+    height: 100vh;
+}
