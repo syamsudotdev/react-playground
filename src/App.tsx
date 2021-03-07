@@ -2,21 +2,25 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="columns is-mobile is-centered">
-      <div className="column is-narrow">
-        <form className="box has-centered">
-          <label>
-            Username <input />
-          </label>
+    <section className="hero is-info is-fullheight">
+      <div className="hero-body container">
+        <div className="box field">
+          <label className="label">Username</label>
+          <div className="control">
+            <input className="input" />
+          </div>
           <br />
-          <label>
-            Password <input type="password" />
-          </label>
+          <label className="label">Password</label>
+          <div className="control">
+            <input className="input" type="password" />
+          </div>
           <br />
-          <button className="button is-primary">LOGIN</button>
-        </form>
+          <div className="control has-text-centered">
+            <button className="button is-primary is-fullwidth">LOGIN</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
