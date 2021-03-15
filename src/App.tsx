@@ -4,11 +4,11 @@ import React, { useState } from "react";
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const onChangeUsername = (event) => {
+  const onChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
     console.log("username changed: " + username);
   };
-  const onChangePassword = (event) => {
+  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     console.log("password changed: " + password);
   };
@@ -19,6 +19,8 @@ function App() {
           <label className="label">Username</label>
           <div className="control">
             <input className="input" onChange={onChangeUsername} />
+            <br/>
+            <p>username state: {username}</p>
           </div>
           <br />
           <label className="label">Password</label>
@@ -28,6 +30,8 @@ function App() {
               onChange={onChangePassword}
               type="password"
             />
+            <br/>
+            <p>password state: {password}</p>
           </div>
           <br />
           <div className="control has-text-centered">
