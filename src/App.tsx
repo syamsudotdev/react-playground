@@ -19,7 +19,7 @@ function App() {
           <label className="label">Username</label>
           <div className="control">
             <input className="input" onChange={onChangeUsername} />
-            <br/>
+            <br />
             <p>username state: {username}</p>
           </div>
           <br />
@@ -30,7 +30,7 @@ function App() {
               onChange={onChangePassword}
               type="password"
             />
-            <br/>
+            <br />
             <p>password state: {password}</p>
           </div>
           <br />
