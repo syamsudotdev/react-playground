@@ -4,13 +4,11 @@ import React, { useState } from "react";
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const onChangeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-    console.log("username changed: " + username);
+  const onChangeUsername = (event: React.FormEvent<HTMLInputElement>) => {
+    setUsername(event.currentTarget.value);
   };
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    console.log("password changed: " + password);
+  const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value);
   };
   return (
     <section className="hero is-info is-fullheight">
