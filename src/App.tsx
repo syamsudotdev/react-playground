@@ -17,8 +17,6 @@ function App() {
           <label className="label">Username</label>
           <div className="control">
             <input className="input" onChange={onChangeUsername} />
-            <br />
-            <p>username state: {username}</p>
           </div>
           <br />
           <label className="label">Password</label>
@@ -28,8 +26,6 @@ function App() {
               onChange={onChangePassword}
               type="password"
             />
-            <br />
-            <p>password state: {password}</p>
           </div>
           <br />
           <div className="control has-text-centered">
