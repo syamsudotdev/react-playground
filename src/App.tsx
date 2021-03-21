@@ -1,6 +1,13 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 
+function useUsername(form: {username: string, password: string}) {
+  useEffect(() => {
+    console.log("form changed, username: " + form.username + " password: " + form.password);
+  }, [form.username, form.password]);
+  return;
+}
+
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,10 +17,7 @@ function App() {
   const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   };
-  const onFormChanged = () => {
-    console.log("username / password changed: \"" + username + "\" / \"" + password +"\"");
-  };
-  useEffect(onFormChanged, [username, password]);
+  useUsername({username: username, password: password});
   return (
     <section className="hero is-info is-fullheight">
       <div className="hero-body container">
