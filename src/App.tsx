@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -10,6 +10,10 @@ function App() {
   const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   };
+  const onFormChanged = () => {
+    console.log("username / password changed: \"" + username + "\" / \"" + password +"\"");
+  };
+  useEffect(onFormChanged, [username, password]);
   return (
     <section className="hero is-info is-fullheight">
       <div className="hero-body container">
