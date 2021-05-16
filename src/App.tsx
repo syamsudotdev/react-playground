@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-const ThemeContext = React.createContext({
+const ThemeContext = createContext({
   theme: "light",
   toggleTheme: () => {},
 });
@@ -101,4 +101,3 @@ function App() {
 }
 
 export default App;
-
