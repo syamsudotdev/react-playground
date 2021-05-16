@@ -1,7 +1,10 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 
-const ThemeContext = React.createContext("");
+const ThemeContext = React.createContext({
+  theme: "light",
+  toggleTheme: () => {},
+});
 
 function useUsername(form: { username: string; password: string }) {
   useEffect(() => {
@@ -15,8 +18,9 @@ function useUsername(form: { username: string; password: string }) {
 function ThemedButton() {
   return (
     <ThemeContext.Consumer>
-      {(theme) => (
+      {({ theme, toggleTheme }) => (
         <button
+          onClick={toggleTheme}
           className={`button ${
             theme === "dark" ? "is-dark" : "is-light"
           } is-fullwidth`}
@@ -29,6 +33,7 @@ function ThemedButton() {
 }
 
 function App() {
+  const [theme, setTheme] = useState("light");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const onChangeUsername = (event: React.FormEvent<HTMLInputElement>) => {
@@ -37,53 +42,63 @@ function App() {
   const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   };
+  const toggleTheme = () => {
+    setTheme((current) => {
+      if (current === "light") return "dark";
+      return "light";
+    });
+  };
   useUsername({ username: username, password: password });
   return (
-    <section className="hero is-info is-fullheight">
-      <div className="hero-head">
-        <nav className="nav">
-          <div className="navbar-menu">
-            <div className="navbar-end">
-              <ThemeContext.Consumer>
-                {(theme) => (
-                  <span className="navbar-item">
-                    <button
-                      className={`button is-small ${
-                        theme === "dark" ? "is-dark" : "is-light"
-                      }`}
-                    >
-                      Toggle Theme
-                    </button>
-                  </span>
-                )}
-              </ThemeContext.Consumer>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <section className="hero is-info is-fullheight">
+        <div className="hero-head">
+          <nav className="nav">
+            <div className="navbar-menu">
+              <div className="navbar-end">
+                <ThemeContext.Consumer>
+                  {({ theme, toggleTheme }) => (
+                    <span className="navbar-item">
+                      <button
+                        onClick={toggleTheme}
+                        className={`button is-small ${
+                          theme === "dark" ? "is-dark" : "is-light"
+                        }`}
+                      >
+                        Toggle Theme
+                      </button>
+                    </span>
+                  )}
+                </ThemeContext.Consumer>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div className="hero-body container">
+          <div className="box field">
+            <label className="label">Username</label>
+            <div className="control">
+              <input className="input" onChange={onChangeUsername} />
+            </div>
+            <br />
+            <label className="label">Password</label>
+            <div className="control">
+              <input
+                className="input"
+                onChange={onChangePassword}
+                type="password"
+              />
+            </div>
+            <br />
+            <div className="control has-text-centered">
+              <ThemedButton />
             </div>
           </div>
-        </nav>
-      </div>
-      <div className="hero-body container">
-        <div className="box field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" onChange={onChangeUsername} />
-          </div>
-          <br />
-          <label className="label">Password</label>
-          <div className="control">
-            <input
-              className="input"
-              onChange={onChangePassword}
-              type="password"
-            />
-          </div>
-          <br />
-          <div className="control has-text-centered">
-            <ThemedButton />
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </ThemeContext.Provider>
   );
 }
 
 export default App;
+
