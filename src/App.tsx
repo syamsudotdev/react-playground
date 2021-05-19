@@ -1,5 +1,5 @@
 import "./App.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import { ThemeContext, ThemeProvider } from "./ThemeContext";
 
@@ -15,6 +15,7 @@ function useUsername(form: { username: string; password: string }) {
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [theme, setTheme] = useState("light");
   const onChangeUsername = (event: React.FormEvent<HTMLInputElement>) => {
     setUsername(event.currentTarget.value);
   };
@@ -22,20 +23,30 @@ function App() {
     setPassword(event.currentTarget.value);
   };
   useUsername({ username: username, password: password });
-  const { toggleTheme } = useContext(ThemeContext);
   return (
-    <ThemeProvider>
+    <ThemeProvider
+      theme={theme}
+      toggleTheme={() => {
+        setTheme((current) => {
+          return current === "light" ? "dark" : "light";
+        });
+      }}
+    >
       <section className="hero is-info is-fullheight">
         <div className="hero-head">
           <nav className="nav">
             <div className="navbar-menu">
               <div className="navbar-end">
                 <span className="navbar-item">
-                  <Button
-                    text="Toggle"
-                    className="button is-small is-fullwidth"
-                    onClick={toggleTheme}
-                  />
+                  <ThemeContext.Consumer>
+                    {({ toggleTheme }) => (
+                      <Button
+                        text="Toggle"
+                        className="button is-small is-fullwidth"
+                        onClick={toggleTheme}
+                      />
+                    )}
+                  </ThemeContext.Consumer>
                 </span>
               </div>
             </div>

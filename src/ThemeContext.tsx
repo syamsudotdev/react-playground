@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useState } from "react";
+import { createContext, FunctionComponent } from "react";
 
 export interface ThemeContextInterface {
   theme: string;
@@ -10,17 +10,16 @@ const ThemeContext = createContext<ThemeContextInterface>({
   toggleTheme: () => undefined,
 });
 
-const ThemeProvider: FunctionComponent = ({ children }) => {
-  const [_, setTheme] = useState("light");
+const ThemeProvider: FunctionComponent<ThemeContextInterface> = ({
+  theme,
+  toggleTheme,
+  children,
+}) => {
   return (
     <ThemeContext.Provider
       value={{
-        theme: "light",
-        toggleTheme: () => {
-          setTheme((current) => {
-            return current === "light" ? "dark" : "light";
-          });
-        },
+        theme: theme,
+        toggleTheme: toggleTheme,
       }}
     >
       {children}
