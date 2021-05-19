@@ -1,10 +1,7 @@
 import "./App.css";
-import { createContext, useEffect, useState } from "react";
-
-const ThemeContext = createContext({
-  theme: "light",
-  toggleTheme: () => {},
-});
+import { useEffect, useState } from "react";
+import Button from "./Button";
+import { ThemeContext, ThemeProvider } from "./ThemeContext";
 
 function useUsername(form: { username: string; password: string }) {
   useEffect(() => {
@@ -15,61 +12,42 @@ function useUsername(form: { username: string; password: string }) {
   return;
 }
 
-function ThemedButton() {
-  return (
-    <ThemeContext.Consumer>
-      {({ theme, toggleTheme }) => (
-        <button
-          onClick={toggleTheme}
-          className={`button ${
-            theme === "dark" ? "is-dark" : "is-light"
-          } is-fullwidth`}
-        >
-          LOGIN
-        </button>
-      )}
-    </ThemeContext.Consumer>
-  );
-}
-
 function App() {
-  const [theme, setTheme] = useState("light");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [theme, setTheme] = useState("light");
   const onChangeUsername = (event: React.FormEvent<HTMLInputElement>) => {
     setUsername(event.currentTarget.value);
   };
   const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   };
-  const toggleTheme = () => {
-    setTheme((current) => {
-      if (current === "light") return "dark";
-      return "light";
-    });
-  };
   useUsername({ username: username, password: password });
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeProvider
+      theme={theme}
+      toggleTheme={() => {
+        setTheme((current) => {
+          return current === "light" ? "dark" : "light";
+        });
+      }}
+    >
       <section className="hero is-info is-fullheight">
         <div className="hero-head">
           <nav className="nav">
             <div className="navbar-menu">
               <div className="navbar-end">
-                <ThemeContext.Consumer>
-                  {({ theme, toggleTheme }) => (
-                    <span className="navbar-item">
-                      <button
+                <span className="navbar-item">
+                  <ThemeContext.Consumer>
+                    {({ toggleTheme }) => (
+                      <Button
+                        text="Toggle"
+                        className="button is-small is-fullwidth"
                         onClick={toggleTheme}
-                        className={`button is-small ${
-                          theme === "dark" ? "is-dark" : "is-light"
-                        }`}
-                      >
-                        Toggle Theme
-                      </button>
-                    </span>
-                  )}
-                </ThemeContext.Consumer>
+                      />
+                    )}
+                  </ThemeContext.Consumer>
+                </span>
               </div>
             </div>
           </nav>
@@ -91,12 +69,12 @@ function App() {
             </div>
             <br />
             <div className="control has-text-centered">
-              <ThemedButton />
+              <Button text="LOGIN" className="button is-fullwidth" />
             </div>
           </div>
         </div>
       </section>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }
 
