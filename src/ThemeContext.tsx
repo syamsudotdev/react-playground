@@ -28,4 +28,4 @@ const ThemeProvider: FunctionComponent = ({ children }) => {
   );
 };
 
-export default { ThemeContext, ThemeProvider };
+export { ThemeContext, ThemeProvider };

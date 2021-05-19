@@ -1,7 +1,7 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
-import ThemeProvider from "./ThemeContext";
+import { ThemeContext, ThemeProvider } from "./ThemeContext";
 
 function useUsername(form: { username: string; password: string }) {
   useEffect(() => {
@@ -22,6 +22,7 @@ function App() {
     setPassword(event.currentTarget.value);
   };
   useUsername({ username: username, password: password });
+  const { toggleTheme } = useContext(ThemeContext);
   return (
     <ThemeProvider>
       <section className="hero is-info is-fullheight">
@@ -33,6 +34,7 @@ function App() {
                   <Button
                     text="Toggle"
                     className="button is-small is-fullwidth"
+                    onClick={toggleTheme}
                   />
                 </span>
               </div>
