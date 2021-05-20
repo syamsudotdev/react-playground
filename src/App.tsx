@@ -1,28 +1,12 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "./button/Button";
 import { ThemeContext, ThemeProvider } from "./theme/ThemeContext";
-
-function useUsername(form: { username: string; password: string }) {
-  useEffect(() => {
-    console.log(
-      "form changed, username: " + form.username + " password: " + form.password
-    );
-  }, [form.username, form.password]);
-  return;
-}
+import { Modal } from "./modal/Modal";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [theme, setTheme] = useState("light");
-  const onChangeUsername = (event: React.FormEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value);
-  };
-  const onChangePassword = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value);
-  };
-  useUsername({ username: username, password: password });
+  const [showModal, setShowModal] = useState(false);
   return (
     <ThemeProvider
       theme={theme}
@@ -32,6 +16,28 @@ function App() {
         });
       }}
     >
+      {showModal && (
+        <Modal>
+          <div
+            style={{
+              display: "grid",
+              placeItems: "center",
+              height: "100vh",
+              width: "100vh",
+              background: "rgba(0,0,0,0.1)",
+              zIndex: 99,
+            }}
+          >
+            I'm a modal!{" "}
+            <button
+              style={{ background: "papyawhip" }}
+              onClick={() => setShowModal(false)}
+            >
+              close
+            </button>
+          </div>
+        </Modal>
+      )}
       <section className="hero is-info is-fullheight">
         <div className="hero-head">
           <nav className="nav">
@@ -56,20 +62,22 @@ function App() {
           <div className="box field">
             <label className="label">Username</label>
             <div className="control">
-              <input className="input" onChange={onChangeUsername} />
+              <input className="input" />
             </div>
             <br />
             <label className="label">Password</label>
             <div className="control">
-              <input
-                className="input"
-                onChange={onChangePassword}
-                type="password"
-              />
+              <input className="input" type="password" />
             </div>
             <br />
             <div className="control has-text-centered">
               <Button text="LOGIN" className="button is-fullwidth" />
+              <br />
+              <Button
+                text="Show Modal"
+                onClick={() => setShowModal(true)}
+                className="button is-fullwidth"
+              />
             </div>
           </div>
         </div>
