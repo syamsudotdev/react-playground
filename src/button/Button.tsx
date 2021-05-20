@@ -1,4 +1,4 @@
-import { ThemeContext } from "./ThemeContext";
+import { ThemeContext } from "../theme/ThemeContext";
 
 interface ButtonProps {
   text: string;

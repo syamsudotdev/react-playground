@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Button from "./Button";
-import { ThemeContext, ThemeProvider } from "./ThemeContext";
+import Button from "./button/Button";
+import { ThemeContext, ThemeProvider } from "./theme/ThemeContext";
 
 function useUsername(form: { username: string; password: string }) {
   useEffect(() => {
