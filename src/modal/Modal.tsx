@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
@@ -6,6 +6,12 @@ const modalRoot = document.getElementById("modal-root") as HTMLElement;
 
 const ModalComponent: FunctionComponent = ({ children }) => {
   const el: HTMLElement = document.createElement("div");
+  useEffect(() => {
+    document.body.appendChild(el);
+    return () => {
+      document.body.removeChild(el);
+    };
+  });
   return ReactDOM.createPortal(children, el);
 };
 
