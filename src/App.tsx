@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Button from "./button/Button";
 import { ThemeContext, ThemeProvider } from "./theme/ThemeContext";
-import { Modal } from "./modal/Modal";
+import { Modal, ModalComponent } from "./modal/Modal";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -17,7 +17,7 @@ function App() {
       }}
     >
       {showModal && (
-        <Modal>
+        <ModalComponent>
           <div
             style={{
               display: "grid",
@@ -36,7 +36,7 @@ function App() {
               close
             </button>
           </div>
-        </Modal>
+        </ModalComponent>
       )}
       <section className="hero is-info is-fullheight">
         <div className="hero-head">

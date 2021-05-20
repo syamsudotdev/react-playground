@@ -1,10 +1,15 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import ReactDOM from "react-dom";
 
 const modalRoot = document.getElementById("modal-root") as HTMLElement;
 // assuming in your html file has a div with id 'modal-root';
 
-export class Modal extends React.Component {
+const ModalComponent: FunctionComponent = ({ children }) => {
+  const el: HTMLElement = document.createElement("div");
+  return ReactDOM.createPortal(children, el);
+};
+
+class Modal extends React.Component {
   el: HTMLElement = document.createElement("div");
 
   componentDidMount() {
@@ -19,3 +24,5 @@ export class Modal extends React.Component {
     return ReactDOM.createPortal(this.props.children, this.el);
   }
 }
+
+export { ModalComponent, Modal };
